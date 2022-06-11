@@ -1,0 +1,4 @@
+ginza == 5.1.1
+ja-ginza-electra == 5.1.0
+beautifulsoup4 == 4.9.0
+lxml == 4.9.0
