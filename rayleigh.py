@@ -17,6 +17,11 @@ def process_aozora_card(card_path):
 
 
 def process_aozora_html(html_path):
+    cardname = os.path.basename(html_path.replace('.html', ''))
+    txt_file_path = os.path.join(MAIN_TXT_PATH, cardname+'.txt')
+    tsv_file_path = os.path.join(TSV_PATH, cardname+'.tsv')
+    if os.path.exists(tsv_file_path):
+        return
     try:
         with open(html_path, 'r', encoding='shift_jis') as f:
             html = f.read()
@@ -25,9 +30,6 @@ def process_aozora_html(html_path):
 
             main_texts = soup.find_all('div', {'class': 'main_text'})
             for main_text in main_texts:
-                cardname = os.path.basename(html_path.replace('.html', ''))
-                txt_file_path = os.path.join(MAIN_TXT_PATH, cardname+'.txt')
-                tsv_file_path = os.path.join(TSV_PATH, cardname+'.tsv')
                 write_main_text_txt(main_text.text, txt_file_path)
                 generate_tsv(txt_file_path, tsv_file_path)
     except UnicodeDecodeError:
